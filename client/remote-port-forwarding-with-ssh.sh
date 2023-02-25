@@ -53,8 +53,7 @@ do
   start_time=$(date +%s)
   cmd="ssh -N $args $user@$address -p $port -i $ssh_key"
   echo "Executing command: $cmd"
-	eval $cmd
-  sleep 31
+  eval $cmd
   now=$(date +%s)
   diff=$((now - start_time))
   if [ $diff -gt 600 ]
