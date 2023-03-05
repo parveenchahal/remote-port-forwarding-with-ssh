@@ -1,3 +1,7 @@
+function __print_message() {
+  echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ") $1"
+}
+
 CONFIG_DIR='/etc/remote-port-forwarding-with-ssh'
 MAX_WAIT=600
 port_mapping_conf=$1
@@ -21,29 +25,29 @@ source $remote_conf
 
 if [ -z $user ]
 then
-  echo "user is not provided in $CONFIG_DIR/remote.conf"
+  __print_message "user is not provided in $CONFIG_DIR/remote.conf"
   exit 1
 fi
 if [ -z $address ]
 then
-  echo "address is not provided in $CONFIG_DIR/remote.conf"
+  __print_message "address is not provided in $CONFIG_DIR/remote.conf"
   exit 1
 fi
 if [ -z $port ]
 then
-  echo "port is not provided in $CONFIG_DIR/remote.conf"
+  __print_message "port is not provided in $CONFIG_DIR/remote.conf"
   exit 1
 fi
 
 if [ -z $ssh_key ]
 then
-  echo "ssh_key is not provided in $CONFIG_DIR/remote.conf"
+  __print_message "ssh_key is not provided in $CONFIG_DIR/remote.conf"
   exit 1
 fi
 
 if [ -z $args ]
 then
-  echo "No valid remote port mapping found in $CONFIG_DIR/remote-port-mapping.conf"
+  __print_message "No valid remote port mapping found in $CONFIG_DIR/remote-port-mapping.conf"
   exit 1
 fi
 
@@ -52,7 +56,7 @@ while :
 do
   start_time=$(date +%s)
   cmd="ssh -N $args $user@$address -p $port -i $ssh_key"
-  echo "Executing command: $cmd"
+  __print_message "Executing command: $cmd"
   eval $cmd
   now=$(date +%s)
   diff=$((now - start_time))
@@ -60,7 +64,7 @@ do
   then
     wait_time=60
   fi
-  echo "Will try again after $wait_time seconds"
+  __print_message "Will try again after $wait_time seconds"
   sleep $wait_time
   wait_time=$((wait_time * 2))
   if [ $wait_time -gt $MAX_WAIT ]
