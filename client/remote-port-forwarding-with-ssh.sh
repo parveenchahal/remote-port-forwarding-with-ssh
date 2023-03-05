@@ -55,7 +55,7 @@ wait_time=60
 while :
 do
   start_time=$(date +%s)
-  cmd="ssh -N $args $user@$address -p $port -i $ssh_key"
+  cmd="ssh -N -o ConnectTimeout=10 $args $user@$address -p $port -i $ssh_key"
   __print_message "Executing command: $cmd"
   eval $cmd
   now=$(date +%s)
