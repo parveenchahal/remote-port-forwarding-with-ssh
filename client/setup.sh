@@ -25,6 +25,6 @@ Type=simple
 WorkingDirectory=/usr/sbin
 ExecStart=/bin/bash remote-port-forwarding-with-ssh "$CONFIG_DIR/remote-port-mapping.conf" "$CONFIG_DIR/remote.conf"
 StandardOutput=file:/var/log/remote-port-forwarding-with-ssh.log
-StandardError=file:/var/log/remote-port-forwarding-with-ssh.log
+StandardError=file:/var/log/remote-port-forwarding-with-ssh-err.log
 SyslogIdentifier=%n
 EOF
