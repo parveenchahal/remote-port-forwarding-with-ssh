@@ -3,6 +3,28 @@ fail() {
     exit 1
 }
 
+PARSED_OPTIONS=$(getopt -o "" -l "user:" -- "$@")
+eval set -- "$PARSED_OPTIONS"
+
+user="$USER"
+
+while true; do
+  case "$1" in
+    --user)
+      user="$2"
+      shift 2
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo "Unexpected option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
 CONFIG_DIR='/etc/remote-port-forwarding-with-ssh'
 
 [ -d $CONFIG_DIR ] || mkdir $CONFIG_DIR || fail 'Not able to create dir.'
@@ -22,7 +44,7 @@ Description=Remote port forwarding using ssh
 WantedBy=multi-user.target
 [Service]
 Type=simple
-User=$USER
+User=$user
 WorkingDirectory=/usr/sbin
 ExecStart=/bin/bash remote-port-forwarding-with-ssh "$CONFIG_DIR/remote-port-mapping.conf" "$CONFIG_DIR/remote.conf"
 StandardOutput=file:/var/log/remote-port-forwarding-with-ssh.log
