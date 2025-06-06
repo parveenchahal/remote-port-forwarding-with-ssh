@@ -22,6 +22,7 @@ Description=Remote port forwarding using ssh
 WantedBy=multi-user.target
 [Service]
 Type=simple
+User=$USER
 WorkingDirectory=/usr/sbin
 ExecStart=/bin/bash remote-port-forwarding-with-ssh "$CONFIG_DIR/remote-port-mapping.conf" "$CONFIG_DIR/remote.conf"
 StandardOutput=file:/var/log/remote-port-forwarding-with-ssh.log
