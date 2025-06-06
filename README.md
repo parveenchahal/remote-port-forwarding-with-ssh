@@ -35,7 +35,45 @@
 1. ```sh
    chmod +x ./setup.sh
    ```
-1. Run
+1. Install
    ```
    sudo ./setup.sh --user $USER
+   ```
+1. Configure `/etc/remote-port-forwarding-with-ssh/remote-port-mapping.conf`
+   Open file
+   ```
+   sudo vim /etc/remote-port-forwarding-with-ssh/remote-port-mapping.conf 
+   ```
+   Add port mapping
+   ```
+   8080=localhost:80
+   4443=localhost:443
+   ```
+1. Configure `/etc/remote-port-forwarding-with-ssh/remote.conf`
+   Open file
+   ```
+   sudo vim /etc/remote-port-forwarding-with-ssh/remote.conf
+   ```
+   Add proxy details for ssh
+   ```
+   user=ubuntu
+   address=<proxy vm IP/Domain>
+   port=22
+   ssh_key=/home/<your user>/.ssh/id_rsa
+   ```
+1. SSH manually for first time so that remote host can be added in known_hosts file.
+   ```
+   ssh <user>@<IP/Domain>
+   ```
+1. Enable service in systemctl
+   ```
+   sudo systemctl enable remote-port-forwarding-with-ssh.service
+   ```
+1. Start service
+   ```
+   sudo systemctl start remote-port-forwarding-with-ssh.service
+   ```
+1. With any change in conf file service requires restart.
+   ```
+   sudo systemctl restart remote-port-forwarding-with-ssh.service
    ```
