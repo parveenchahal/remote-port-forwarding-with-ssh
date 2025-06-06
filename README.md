@@ -37,5 +37,5 @@
    ```
 1. Run
    ```
-   sudo ./setup.sh
+   sudo ./setup.sh --user $USER
    ```
