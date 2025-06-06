@@ -31,8 +31,8 @@ CONFIG_DIR='/etc/remote-port-forwarding-with-ssh'
 
 [ -f "remote-port-forwarding-with-ssh.sh" ] || fail "remote-port-forwarding-with-ssh.sh file not found"
 
-cp remote-port-forwarding-with-ssh.sh /usr/sbin/remote-port-forwarding-with-ssh
-chmod +x "/usr/sbin/remote-port-forwarding-with-ssh"
+cp remote-port-forwarding-with-ssh.sh /usr/bin/remote-port-forwarding-with-ssh
+sudo chmod 755 /usr/bin/remote-port-forwarding-with-ssh 
 
 touch "$CONFIG_DIR/remote-port-mapping.conf"
 touch "$CONFIG_DIR/remote.conf"
